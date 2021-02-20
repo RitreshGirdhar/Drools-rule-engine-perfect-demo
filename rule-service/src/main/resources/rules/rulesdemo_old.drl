@@ -1,0 +1,286 @@
+import com.dt.cms.flows.campaign.model.analytics.Operation;
+import com.dt.cms.flows.campaign.model.analytics.OperationResult;
+import java.util.*
+import org.apache.commons.lang3.StringUtils;
+global com.dt.cms.flows.campaign.model.analytics.RuleGlobalSharedResponse sharedResponse;
+global Integer druidQueryResult;
+dialect  "mvel"
+
+// int operator handling start
+rule "is between int operator rules"
+    when
+        operation:Operation(operator == "is between");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" >= ").append(operation.getOperands().get(0)).append(" and ")
+        .append(operation.getKey()).append(" <= ").append(operation.getOperands().get(1));
+        System.out.println("is between int operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "is less than int operator rules"
+    when
+        operation:Operation(operator == "is less than");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" < ").append(operation.getOperands().get(0));
+        System.out.println("is less than int operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "is less than equal to int operator rules"
+    when
+        operation:Operation(operator == "is less than equal to");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" <= ").append(operation.getOperands().get(0));
+        System.out.println("is less than equal to operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "is greater than int operator rules"
+    when
+        operation:Operation(operator == "is greater than");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" > ").append(operation.getOperands().get(0));
+        System.out.println("is greater than operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "is greater than equal to int operator rules"
+    when
+        operation:Operation(operator == "is greater than equal to");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" >= ").append(operation.getOperands().get(0));
+        System.out.println("is greater than equal to operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "is not equal to int operator rules"
+    when
+        operation:Operation(operator == "is not equal to");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" != ").append(operation.getOperands().get(0));
+        System.out.println("is not equal to operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "in the following int operator rules"
+    when
+        operation:Operation(operator == "in the following");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" in (").append(StringUtils.join(operation.getOperands(), ',')).append(")");
+        System.out.println("in the following int operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+// int rules ends
+
+// string rules starts
+
+rule "is operator rules"
+    when
+        operation:Operation(operator == "is");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" = '").append(operation.getOperands().get(0)).append("'");
+        System.out.println("is operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "in the following operator rules"
+    when
+        operation:Operation(operator == "in the following");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" in (").append(StringUtils.join(operation.getOperands(), ',')).append(")");
+        System.out.println("in the following operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "is not operator rules"
+    when
+        operation:Operation(operator == "is not");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" != '").append(operation.getOperands().get(0)).append("'");
+        System.out.println("is not operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "contains operator rules"
+    when
+        operation:Operation(operator == "contains");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" like '%").append(operation.getOperands().get(0)).append("%'");
+        System.out.println("contains operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "starts with operator rules"
+    when
+        operation:Operation(operator == "starts with");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" like '").append(operation.getOperands().get(0)).append("%'");
+        System.out.println("starts with operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "doesn't contain operator rules"
+    when
+        operation:Operation(operator == "doesn't contain");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" not in (").append(StringUtils.join(operation.getOperands(), ',')).append(")");
+        System.out.println( "doesn't contain operator rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+// String rules ends
+
+
+// Date rules starts
+rule "is between date rules"
+    when
+        operation:Operation(operator == "is between");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" >= '").append(operation.getOperands().get(0)).append("' and ")
+        .append(operation.getKey()).append(" <= '").append(operation.getOperands().get(1)).append("'");
+        System.out.println("is between date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "before date rules"
+    when
+        operation:Operation(operator == "before");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" < '").append(operation.getOperands().get(0)).append("'");
+        System.out.println("before date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "after date rules"
+    when
+        operation:Operation(operator == "after");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" > '").append(operation.getOperands().get(0)).append("'");
+        System.out.println("after date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "on date rules"
+    when
+       operation:Operation(operator == "on");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        stringBuilder.append(operation.getKey()).append(" = '").append(operation.getOperands().get(0)).append("'");
+        System.out.println("on date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+
+rule "is in last date rules"
+    when
+        operationResult:OperationResult(operator == "is in last");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+       // TODO
+        System.out.println("is in last date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+
+rule "is in next date rules"
+    when
+        operationResult:OperationResult(operator == "is in next");
+    then
+        StringBuilder stringBuilder = new StringBuilder(sharedResponse.getResponse());
+        // TODO
+        System.out.println("is in next date rules");
+        sharedResponse.setResponse(stringBuilder.toString());
+end
+// Date rules ends
+
+
+// Operation result rules starts
+rule "is operator result rules"
+    when
+        operationResult:OperationResult(operator == "is");
+    then
+        System.out.println("is operator result rules");
+        System.out.println("druidQueryResult "+druidQueryResult);
+        System.out.println("operationResult.getValue "+operationResult.getValue());
+        System.out.println("condition ::::" +(druidQueryResult == operationResult.getValue()));
+
+        if(druidQueryResult == operationResult.getValue()){
+            sharedResponse.setSharedOperationResultResponse(true);
+        }
+        System.out.println("sharedOperationResultResponse::::"+sharedResponse.getSharedOperationResultResponse());
+end
+
+rule "is less than operator result rules"
+    when
+        operationResult:OperationResult(operator == "is less than");
+    then
+        System.out.println("is less than operator result rules ");
+        System.out.println("druidQueryResult "+druidQueryResult);
+        System.out.println("operationResult.getValue "+operationResult.getValue());
+        System.out.println("condition ::::" +(druidQueryResult < operationResult.getValue()));
+        sharedOperationResultResponse = druidQueryResult < operationResult.getValue() ? true:false;
+
+        if(druidQueryResult < operationResult.getValue()) {
+                  sharedResponse.setSharedOperationResultResponse(true);
+        }
+
+        System.out.println("sharedOperationResultResponse::::"+sharedResponse.getSharedOperationResultResponse());
+end
+
+rule "is greater than operator result rules"
+    when
+        operationResult:OperationResult(operator == "is greater than");
+    then
+        System.out.println("is greater than operator result rules ");
+        System.out.println("druidQueryResult "+druidQueryResult);
+        System.out.println("operationResult.getValue "+operationResult.getValue());
+        System.out.println("condition ::::" +(druidQueryResult > operationResult.getValue()));
+        sharedOperationResultResponse = druidQueryResult > operationResult.getValue() ? true:false;
+        if(druidQueryResult > operationResult.getValue()) {
+                   sharedResponse.setSharedOperationResultResponse(true);
+        }
+        System.out.println("sharedOperationResultResponse::::"+sharedResponse.getSharedOperationResultResponse());
+end
+
+rule "atleast operator result rules"
+    when
+        operationResult:OperationResult(operator == "atleast");
+    then
+        System.out.println("atleast operator result rules");
+        System.out.println("druidQueryResult "+druidQueryResult);
+        System.out.println("operationResult.getValue "+operationResult.getValue());
+        sharedOperationResultResponse = druidQueryResult <= operationResult.getValue() ? true:false;
+end
+
+rule "atmost operator result rules"
+    when
+        operationResult:OperationResult(operator == "atmost");
+    then
+        System.out.println("atmost operator result rules");
+        System.out.println("druidQueryResult "+druidQueryResult);
+        System.out.println("operationResult.getValue "+operationResult.getValue());
+        sharedOperationResultResponse = druidQueryResult >= operationResult.getValue() ? true:false;
+end
+
+//operation result rules ends
