@@ -9,11 +9,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication public class DemoApplication {
+@SpringBootApplication public class DroolsDemoApplication {
 	private static final String droolFile = "rulesdemo.drl";
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(DroolsDemoApplication.class, args);
 	}
 
 //	public static void main(String[] args) {

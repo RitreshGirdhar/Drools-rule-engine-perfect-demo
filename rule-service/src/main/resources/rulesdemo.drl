@@ -6,21 +6,18 @@ global personal.learning.model.RuleGlobalSharedResponse ruleGlobalSharedResponse
 global Integer druidQueryResult;
 dialect  "mvel"
 
-// int operator handling start
 rule "is between int operator rules"
     when
         statement:Statement(operator == "is between");
     then
         System.out.println("is between int operator rules");
-        sharedResponse.setResponse("is between int operator rules");
+        ruleGlobalSharedResponse.setResponse("is between int operator rules");
 end
 
 rule "is less than int operator rules"
-    when
-        statement:Statement(operator == "is less than");
-    then
+	when
+	statement:Statement(operator == "is less than");
+	then
         System.out.println("is less than int operator rules");
-        sharedResponse.setResponse("is less than int operator rules");
+        ruleGlobalSharedResponse.setResponse("is less than int operator rules");
 end
-
-//operation result rules ends

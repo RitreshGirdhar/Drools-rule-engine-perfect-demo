@@ -15,7 +15,6 @@ public class RuleController {
 	@PostMapping(value = "/rules")
 	public RulesResponse executeRules(@RequestBody Rules rules) {
 		// TODO Validate rules first
-
 		return rulesExecutionService.execute(rules);
 	}
 

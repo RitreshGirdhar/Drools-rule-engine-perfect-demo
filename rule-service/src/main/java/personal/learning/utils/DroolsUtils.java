@@ -36,5 +36,4 @@ public class DroolsUtils {
 		kieSession.dispose();
 		return "";
 	}
-
 }
